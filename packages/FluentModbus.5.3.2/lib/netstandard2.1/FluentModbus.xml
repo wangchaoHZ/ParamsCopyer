@@ -1,0 +1,1708 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FluentModbus</name>
+    </assembly>
+    <members>
+        <member name="T:FluentModbus.ModbusClient">
+            <summary>
+            A base class for Modbus client implementations.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusClient.IsConnected">
+            <summary>
+            Gets the connection status of the underlying client.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.TransceiveFrame(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter})">
+            <summary>
+            Sends the requested modbus message and waits for the response.
+            </summary>
+            <param name="unitIdentifier">The unit identifier.</param>
+            <param name="functionCode">The function code.</param>
+            <param name="extendFrame">An action to be called to extend the prepared Modbus frame with function code specific data.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadHoldingRegisters``1(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Reads the specified number of values of type <typeparamref name="T"/> from the holding registers.
+            </summary>
+            <typeparam name="T">Determines the type of the returned data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the read operation.</param>
+            <param name="count">The number of elements of type <typeparamref name="T"/> to read.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadHoldingRegisters(System.Byte,System.UInt16,System.UInt16)">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Reads the specified number of values as byte array from the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the read operation.</param>
+            <param name="quantity">The number of holding registers (16 bit per register) to read.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteMultipleRegisters``1(System.Int32,System.Int32,``0[])">
+            <summary>
+            Writes the provided array of type <typeparamref name="T"/> to the holding registers.
+            </summary>
+            <typeparam name="T">Determines the type of the provided data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The data of type <typeparamref name="T"/> to write to the server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteMultipleRegisters(System.Byte,System.UInt16,System.Byte[])">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Writes the provided byte array to the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The byte array to write to the server. A minimum of two bytes is required.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadCoils(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Reads the specified number of coils as byte array. Each bit of the returned array represents a single coil.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The coil start address for the read operation.</param>
+            <param name="quantity">The number of coils to read.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadDiscreteInputs(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Reads the specified number of discrete inputs as byte array. Each bit of the returned array represents a single discrete input.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The discrete input start address for the read operation.</param>
+            <param name="quantity">The number of discrete inputs to read.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadInputRegisters``1(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Reads the specified number of values of type <typeparamref name="T"/> from the input registers.
+            </summary>
+            <typeparam name="T">Determines the type of the returned data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The input register start address for the read operation.</param>
+            <param name="count">The number of elements of type <typeparamref name="T"/> to read.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadInputRegisters(System.Byte,System.UInt16,System.UInt16)">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Reads the specified number of values as byte array from the input registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The input register start address for the read operation.</param>
+            <param name="quantity">The number of input registers (16 bit per register) to read.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleCoil(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Writes the provided <paramref name="value"/> to the coil registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The coil address for the write operation.</param>
+            <param name="value">The value to write to the server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleRegister(System.Int32,System.Int32,System.Int16)">
+            <summary>
+            Writes the provided <paramref name="value"/> to the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The holding register address for the write operation.</param>
+            <param name="value">The value to write to the server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleRegister(System.Int32,System.Int32,System.UInt16)">
+            <summary>
+            Writes the provided <paramref name="value"/> to the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The holding register address for the write operation.</param>
+            <param name="value">The value to write to the server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleRegister(System.Byte,System.UInt16,System.Byte[])">
+            <summary>
+            Low level API. Use the overloads of this method for easier access. Writes the provided byte array to the holding register.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The holding register address for the write operation.</param>
+            <param name="value">The value to write to the server, which is passed as a 2-byte array.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteMultipleCoils(System.Int32,System.Int32,System.Boolean[])">
+            <summary>
+            Writes the provided <paramref name="values"/> to the coil registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The coil register start address for the write operation.</param>
+            <param name="values">The values to write to the server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadFileRecord">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteFileRecord">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.MaskWriteRegister">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadWriteMultipleRegisters``2(System.Int32,System.Int32,System.Int32,System.Int32,``1[])">
+            <summary>
+            Reads the specified number of values of type <typeparamref name="TRead"/> from and writes the provided array of type <typeparamref name="TWrite"/> to the holding registers. The write operation is performed before the read.
+            </summary>
+            <typeparam name="TRead">Determines the type of the returned data.</typeparam>
+            <typeparam name="TWrite">Determines the type of the provided data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="readStartingAddress">The holding register start address for the read operation.</param>
+            <param name="readCount">The number of elements of type <typeparamref name="TRead"/> to read.</param>
+            <param name="writeStartingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The data of type <typeparamref name="TWrite"/> to write to the server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadWriteMultipleRegisters(System.Byte,System.UInt16,System.UInt16,System.UInt16,System.Byte[])">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Reads the specified number of values as byte array from and writes the provided byte array to the holding registers. The write operation is performed before the read.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="readStartingAddress">The holding register start address for the read operation.</param>
+            <param name="readQuantity">The number of holding registers (16 bit per register) to read.</param>
+            <param name="writeStartingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The byte array to write to the server. A minimum of two bytes is required.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadFifoQueue">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.TransceiveFrameAsync(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter},System.Threading.CancellationToken)">
+            <summary>
+            Sends the requested modbus message and waits for the response.
+            </summary>
+            <param name="unitIdentifier">The unit identifier.</param>
+            <param name="functionCode">The function code.</param>
+            <param name="extendFrame">An action to be called to extend the prepared Modbus frame with function code specific data.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadHoldingRegistersAsync``1(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Reads the specified number of values of type <typeparamref name="T"/> from the holding registers.
+            </summary>
+            <typeparam name="T">Determines the type of the returned data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the read operation.</param>
+            <param name="count">The number of elements of type <typeparamref name="T"/> to read.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadHoldingRegistersAsync(System.Byte,System.UInt16,System.UInt16,System.Threading.CancellationToken)">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Reads the specified number of values as byte array from the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the read operation.</param>
+            <param name="quantity">The number of holding registers (16 bit per register) to read.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteMultipleRegistersAsync``1(System.Int32,System.Int32,``0[],System.Threading.CancellationToken)">
+            <summary>
+            Writes the provided array of type <typeparamref name="T"/> to the holding registers.
+            </summary>
+            <typeparam name="T">Determines the type of the provided data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The data of type <typeparamref name="T"/> to write to the server.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteMultipleRegistersAsync(System.Byte,System.UInt16,System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Writes the provided byte array to the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The byte array to write to the server. A minimum of two bytes is required.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadCoilsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Reads the specified number of coils as byte array. Each bit of the returned array represents a single coil.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The coil start address for the read operation.</param>
+            <param name="quantity">The number of coils to read.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadDiscreteInputsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Reads the specified number of discrete inputs as byte array. Each bit of the returned array represents a single discrete input.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The discrete input start address for the read operation.</param>
+            <param name="quantity">The number of discrete inputs to read.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadInputRegistersAsync``1(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Reads the specified number of values of type <typeparamref name="T"/> from the input registers.
+            </summary>
+            <typeparam name="T">Determines the type of the returned data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The input register start address for the read operation.</param>
+            <param name="count">The number of elements of type <typeparamref name="T"/> to read.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadInputRegistersAsync(System.Byte,System.UInt16,System.UInt16,System.Threading.CancellationToken)">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Reads the specified number of values as byte array from the input registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The input register start address for the read operation.</param>
+            <param name="quantity">The number of input registers (16 bit per register) to read.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleCoilAsync(System.Int32,System.Int32,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Writes the provided <paramref name="value"/> to the coil registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The coil address for the write operation.</param>
+            <param name="value">The value to write to the server.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleRegisterAsync(System.Int32,System.Int32,System.Int16,System.Threading.CancellationToken)">
+            <summary>
+            Writes the provided <paramref name="value"/> to the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The holding register address for the write operation.</param>
+            <param name="value">The value to write to the server.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleRegisterAsync(System.Int32,System.Int32,System.UInt16,System.Threading.CancellationToken)">
+            <summary>
+            Writes the provided <paramref name="value"/> to the holding registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The holding register address for the write operation.</param>
+            <param name="value">The value to write to the server.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteSingleRegisterAsync(System.Byte,System.UInt16,System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Low level API. Use the overloads of this method for easier access. Writes the provided byte array to the holding register.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="registerAddress">The holding register address for the write operation.</param>
+            <param name="value">The value to write to the server, which is passed as a 2-byte array.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteMultipleCoilsAsync(System.Int32,System.Int32,System.Boolean[],System.Threading.CancellationToken)">
+            <summary>
+            Writes the provided <paramref name="values"/> to the coil registers.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="startingAddress">The coil register start address for the write operation.</param>
+            <param name="values">The values to write to the server.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadFileRecordAsync">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.WriteFileRecordAsync">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.MaskWriteRegisterAsync">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadWriteMultipleRegistersAsync``2(System.Int32,System.Int32,System.Int32,System.Int32,``1[],System.Threading.CancellationToken)">
+            <summary>
+            Reads the specified number of values of type <typeparamref name="TRead"/> from and writes the provided array of type <typeparamref name="TWrite"/> to the holding registers. The write operation is performed before the read.
+            </summary>
+            <typeparam name="TRead">Determines the type of the returned data.</typeparam>
+            <typeparam name="TWrite">Determines the type of the provided data.</typeparam>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="readStartingAddress">The holding register start address for the read operation.</param>
+            <param name="readCount">The number of elements of type <typeparamref name="TRead"/> to read.</param>
+            <param name="writeStartingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The data of type <typeparamref name="TWrite"/> to write to the server.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadWriteMultipleRegistersAsync(System.Byte,System.UInt16,System.UInt16,System.UInt16,System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Low level API. Use the generic version of this method for easier access. Reads the specified number of values as byte array from and writes the provided byte array to the holding registers. The write operation is performed before the read.
+            </summary>
+            <param name="unitIdentifier">The unit identifier is used to communicate via devices such as bridges, routers and gateways that use a single IP address to support multiple independent Modbus end units. Thus, the unit identifier is the address of a remote slave connected on a serial line or on other buses. Use the default values 0x00 or 0xFF when communicating to a Modbus server that is directly connected to a TCP/IP network.</param>
+            <param name="readStartingAddress">The holding register start address for the read operation.</param>
+            <param name="readQuantity">The number of holding registers (16 bit per register) to read.</param>
+            <param name="writeStartingAddress">The holding register start address for the write operation.</param>
+            <param name="dataset">The byte array to write to the server. A minimum of two bytes is required.</param>
+            <param name="cancellationToken">The token to monitor for cancellation requests. The default value is <see cref="P:System.Threading.CancellationToken.None"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusClient.ReadFifoQueueAsync">
+            <summary>
+            This methdod is not implemented.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusRtuClient">
+            <summary>
+            A Modbus RTU client.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.#ctor">
+            <summary>
+            Creates a new Modbus RTU client for communication with Modbus RTU servers or bridges, routers and gateways for communication with TCP end units.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.IsConnected">
+            <summary>
+            Gets the connection status of the underlying serial port.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.BaudRate">
+            <summary>
+            Gets or sets the serial baud rate. Default is 9600.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.Handshake">
+            <summary>
+            Gets or sets the handshaking protocol for serial port transmission of data. Default is Handshake.None.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.Parity">
+            <summary>
+            Gets or sets the parity-checking protocol. Default is Parity.Even.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.StopBits">
+            <summary>
+            Gets or sets the standard number of stopbits per byte. Default is StopBits.One.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.ReadTimeout">
+            <summary>
+            Gets or sets the read timeout in milliseconds. Default is 1000 ms.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuClient.WriteTimeout">
+            <summary>
+            Gets or sets the write timeout in milliseconds. Default is 1000 ms.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.Connect(System.String)">
+            <summary>
+            Connect to the specified <paramref name="port"/> with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout.
+            </summary>
+            <param name="port">The COM port to be used, e.g. COM1.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.Connect(System.String,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="port"/>.
+            </summary>
+            <param name="port">The COM port to be used, e.g. COM1.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.Initialize(FluentModbus.IModbusRtuSerialPort,FluentModbus.ModbusEndianness)">
+            <summary>
+            Initialize the Modbus TCP client with an externally managed <see cref="T:FluentModbus.IModbusRtuSerialPort"/>.
+            </summary>
+            <param name="serialPort">The externally managed <see cref="T:FluentModbus.IModbusRtuSerialPort"/>.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.Close">
+            <summary>
+            Closes the opened COM port and frees all resources.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.TransceiveFrame(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.Dispose">
+            <summary>
+            Disposes the current instance.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuClient.TransceiveFrameAsync(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:FluentModbus.ModbusRtuOverTcpClient">
+            <summary>
+            A Modbus TCP client.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.#ctor">
+            <summary>
+            Creates a new Modbus TCP client for communication with Modbus TCP servers or bridges, routers and gateways for communication with serial line end units.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuOverTcpClient.IsConnected">
+            <summary>
+            Gets the connection status of the underlying TCP client.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuOverTcpClient.ConnectTimeout">
+            <summary>
+            Gets or sets the connect timeout in milliseconds. Default is 1000 ms.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuOverTcpClient.ReadTimeout">
+            <summary>
+            Gets or sets the read timeout in milliseconds. Default is <see cref="F:System.Threading.Timeout.Infinite"/>.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuOverTcpClient.WriteTimeout">
+            <summary>
+            Gets or sets the write timeout in milliseconds. Default is <see cref="F:System.Threading.Timeout.Infinite"/>.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect">
+            <summary>
+            Connect to localhost at port 502 with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to localhost at port 502. 
+            </summary>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(System.String)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/>.
+            </summary>
+            <param name="remoteEndpoint">The IP address and optional port of the end unit with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout. Examples: "192.168.0.1", "192.168.0.1:502", "::1", "[::1]:502". The default port is 502.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(System.String,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/>.
+            </summary>
+            <param name="remoteEndpoint">The IP address and optional port of the end unit. Examples: "192.168.0.1", "192.168.0.1:502", "::1", "[::1]:502". The default port is 502.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(System.Net.IPAddress)">
+            <summary>
+            Connect to the specified <paramref name="remoteIpAddress"/> at port 502.
+            </summary>
+            <param name="remoteIpAddress">The IP address of the end unit with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout. Example: IPAddress.Parse("192.168.0.1").</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(System.Net.IPAddress,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="remoteIpAddress"/> at port 502.
+            </summary>
+            <param name="remoteIpAddress">The IP address of the end unit. Example: IPAddress.Parse("192.168.0.1").</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(System.Net.IPEndPoint)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/> with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout.
+            </summary>
+            <param name="remoteEndpoint">The IP address and port of the end unit.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Connect(System.Net.IPEndPoint,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/>.
+            </summary>
+            <param name="remoteEndpoint">The IP address and port of the end unit.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Initialize(System.Net.Sockets.TcpClient,FluentModbus.ModbusEndianness)">
+            <summary>
+            Initialize the Modbus TCP client with an externally managed <see cref="T:System.Net.Sockets.TcpClient"/>.
+            </summary>
+            <param name="tcpClient">The externally managed <see cref="T:System.Net.Sockets.TcpClient"/>.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Disconnect">
+            <summary>
+            Disconnect from the end unit.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.TransceiveFrame(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.Dispose">
+            <summary>
+            Diposes the current instance.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuOverTcpClient.TransceiveFrameAsync(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:FluentModbus.ModbusTcpClient">
+            <summary>
+            A Modbus TCP client.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.#ctor">
+            <summary>
+            Creates a new Modbus TCP client for communication with Modbus TCP servers or bridges, routers and gateways for communication with serial line end units.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpClient.IsConnected">
+            <summary>
+            Gets the connection status of the underlying TCP client.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpClient.ConnectTimeout">
+            <summary>
+            Gets or sets the connect timeout in milliseconds. Default is 1000 ms.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpClient.ReadTimeout">
+            <summary>
+            Gets or sets the read timeout in milliseconds. Default is <see cref="F:System.Threading.Timeout.Infinite"/>.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpClient.WriteTimeout">
+            <summary>
+            Gets or sets the write timeout in milliseconds. Default is <see cref="F:System.Threading.Timeout.Infinite"/>.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect">
+            <summary>
+            Connect to localhost at port 502 with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to localhost at port 502. 
+            </summary>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(System.String)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/>.
+            </summary>
+            <param name="remoteEndpoint">The IP address and optional port of the end unit with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout. Examples: "192.168.0.1", "192.168.0.1:502", "::1", "[::1]:502". The default port is 502.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(System.String,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/>.
+            </summary>
+            <param name="remoteEndpoint">The IP address and optional port of the end unit. Examples: "192.168.0.1", "192.168.0.1:502", "::1", "[::1]:502". The default port is 502.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(System.Net.IPAddress)">
+            <summary>
+            Connect to the specified <paramref name="remoteIpAddress"/> at port 502.
+            </summary>
+            <param name="remoteIpAddress">The IP address of the end unit with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout. Example: IPAddress.Parse("192.168.0.1").</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(System.Net.IPAddress,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="remoteIpAddress"/> at port 502.
+            </summary>
+            <param name="remoteIpAddress">The IP address of the end unit. Example: IPAddress.Parse("192.168.0.1").</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(System.Net.IPEndPoint)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/> with <see cref="F:FluentModbus.ModbusEndianness.LittleEndian"/> as default byte layout.
+            </summary>
+            <param name="remoteEndpoint">The IP address and port of the end unit.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Connect(System.Net.IPEndPoint,FluentModbus.ModbusEndianness)">
+            <summary>
+            Connect to the specified <paramref name="remoteEndpoint"/>.
+            </summary>
+            <param name="remoteEndpoint">The IP address and port of the end unit.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Initialize(System.Net.Sockets.TcpClient,FluentModbus.ModbusEndianness)">
+            <summary>
+            Initialize the Modbus TCP client with an externally managed <see cref="T:System.Net.Sockets.TcpClient"/>.
+            </summary>
+            <param name="tcpClient">The externally managed <see cref="T:System.Net.Sockets.TcpClient"/>.</param>
+            <param name="endianness">Specifies the endianness of the data exchanged with the Modbus server.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Disconnect">
+            <summary>
+            Disconnect from the end unit.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.TransceiveFrame(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter})">
+            <inheritdoc/>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.Dispose">
+            <summary>
+            Diposes the current instance.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpClient.TransceiveFrameAsync(System.Byte,FluentModbus.ModbusFunctionCode,System.Action{FluentModbus.ExtendedBinaryWriter},System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:FluentModbus.ExtendedBinaryReader">
+            <summary>
+            A binary reader with extended capability to handle big-endian data.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FluentModbus.ExtendedBinaryReader"/> instance.
+            </summary>
+            <param name="stream">The underlying data stream.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadInt16Reverse">
+            <summary>
+            Reads a signed short value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadUInt16Reverse">
+            <summary>
+            Reads an unsigned short value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadInt32Reverse">
+            <summary>
+            Reads a signed integer value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadUInt32Reverse">
+            <summary>
+            Reads an unsigned integer value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadInt64Reverse">
+            <summary>
+            Reads a signed long value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadUInt64Reverse">
+            <summary>
+            Reads an unsigned long value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadFloat32Reverse">
+            <summary>
+            Reads a single value value from the stream.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryReader.ReadFloat64Reverse">
+            <summary>
+            Reads a double value value from the stream.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ExtendedBinaryWriter">
+            <summary>
+            A binary writer with extended capability to handle big-endian data.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FluentModbus.ExtendedBinaryWriter"/> instance.
+            </summary>
+            <param name="stream">The underlying data stream.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.Byte[])">
+            <summary>
+            Writes the provided byte array to the stream.
+            </summary>
+            <param name="data">The data to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.Int16)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.UInt16)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.Int32)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.UInt32)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.Int64)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.UInt64)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.Single)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="M:FluentModbus.ExtendedBinaryWriter.WriteReverse(System.Double)">
+            <summary>
+            Writes the provided value to the stream.
+            </summary>
+            <param name="value">The value to be written.</param>
+        </member>
+        <member name="T:FluentModbus.IModbusRtuSerialPort">
+            <summary>
+            A serial port for Modbus RTU communication.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.IModbusRtuSerialPort.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads a number of bytes from the serial port input buffer and writes those bytes into a byte array at the specified offset.
+            </summary>
+            <param name="buffer">The byte array to write the input to.</param>
+            <param name="offset">The offset in <paramref name="buffer"/> at which to write the bytes.</param>
+            <param name="count">The maximum number of bytes to read. Fewer bytes are read if <paramref name="count"/> is greater than the number of bytes in the input buffer.</param>
+            <returns>The number of bytes read.</returns>
+        </member>
+        <member name="M:FluentModbus.IModbusRtuSerialPort.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads a number of bytes from the serial port input buffer and writes those bytes into a byte array at the specified offset.
+            </summary>
+            <param name="buffer">The byte array to write the input to.</param>
+            <param name="offset">The offset in <paramref name="buffer"/> at which to write the bytes.</param>
+            <param name="count">The maximum number of bytes to read. Fewer bytes are read if <paramref name="count"/> is greater than the number of bytes in the input buffer.</param>
+            <param name="token">A token to cancel the current operation.</param>
+            <returns>The number of bytes read.</returns>
+        </member>
+        <member name="M:FluentModbus.IModbusRtuSerialPort.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a specified number of bytes to the serial port using data from a buffer.
+            </summary>
+            <param name="buffer">The byte array that contains the data to write to the port.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="buffer"/> parameter at which to begin copying bytes to the port.</param>
+            <param name="count">The number of bytes to write.</param>
+        </member>
+        <member name="M:FluentModbus.IModbusRtuSerialPort.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes a specified number of bytes to the serial port using data from a buffer.
+            </summary>
+            <param name="buffer">The byte array that contains the data to write to the port.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="buffer"/> parameter at which to begin copying bytes to the port.</param>
+            <param name="count">The number of bytes to write.</param>
+            <param name="token">A token to cancel the current operation.</param>
+        </member>
+        <member name="M:FluentModbus.IModbusRtuSerialPort.Open">
+            <summary>
+            Opens a new serial port connection.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.IModbusRtuSerialPort.Close">
+            <summary>
+            Closes the port connection, sets the <see cref="P:FluentModbus.IModbusRtuSerialPort.IsOpen"/> property to <see langword="true"/>, and disposes of the internal Stream object.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.IModbusRtuSerialPort.PortName">
+            <summary>
+            Gets the port for communications, including but not limited to all available COM ports.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.IModbusRtuSerialPort.IsOpen">
+            <summary>
+            Gets a value indicating the open or closed status of the serial port object.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusEndianness">
+            <summary>
+            Specifies the endianness of the data.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusEndianness.LittleEndian">
+            <summary>
+            Little endian data layout, i.e. the least significant byte is trasmitted first.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusEndianness.BigEndian">
+            <summary>
+            Big endian data layout, i.e. the most significant byte is trasmitted first.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusException">
+            <summary>
+            This exception is used for Modbus protocol errors.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusException.ExceptionCode">
+            <summary>
+            The Modbus exception code. A value of -1 indicates that there is no specific exception code.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusExceptionCode">
+            <summary>
+            Specifies the Modbus exception type.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.OK">
+            <summary>
+            Only used by the server to indicated that no exception should be returned to the client.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.IllegalFunction">
+            <summary>
+            The function code received in the query is not an allowable action for the server.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.IllegalDataAddress">
+            <summary>
+            The data address received in the query is not an allowable address for the server.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.IllegalDataValue">
+            <summary>
+            A value contained in the query data field is not an allowable value for server.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.ServerDeviceFailure">
+            <summary>
+            An unrecoverable error occurred while the server was attempting to perform the requested action.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.Acknowledge">
+            <summary>
+            Specialized use in conjunction with programming commands. The server has accepted the request and is processing it, but a long duration of time will be required to do so.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.ServerDeviceBusy">
+            <summary>
+            Specialized use in conjunction with programming commands. The engaged in processing a long–duration program command.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.MemoryParityError">
+            <summary>
+            Specialized use in conjunction with function codes 20 and 21 and reference type 6, to indicate that the extended file area failed to pass a consistency check.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.GatewayPathUnavailable">
+            <summary>
+            Specialized use in conjunction with gateways, indicates that the gateway was unable to allocate an internal communication path from the input port to the output port for processing the request.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusExceptionCode.GatewayTargetDeviceFailedToRespond">
+            <summary>
+            Specialized use in conjunction with gateways, indicates that no response was obtained from the target device.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusFunctionCode">
+            <summary>
+            Specifies the action the Modbus server is requested to do.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadHoldingRegisters">
+            <summary>
+            This function code is used to read the contents of a contiguous block of holding registers in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.WriteMultipleRegisters">
+            <summary>
+            This function code is used to write a block of contiguous registers (1 to 123 registers) in a remote device. 
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadCoils">
+            <summary>
+            This function code is used to read from 1 to 2000 contiguous status of coils in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadDiscreteInputs">
+            <summary>
+            This function code is used to read from 1 to 2000 contiguous status of discrete inputs in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadInputRegisters">
+            <summary>
+            This function code is used to read from 1 to 125 contiguous input registers in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.WriteSingleCoil">
+            <summary>
+            This function code is used to write a single output to either ON or OFF in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.WriteSingleRegister">
+            <summary>
+            This function code is used to write a single holding register in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadExceptionStatus">
+            <summary>
+            This function code is used to read the contents of eight Exception  Status outputs in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.WriteMultipleCoils">
+            <summary>
+            This function code is used to force each coil in a sequence of coils to either ON or OFF in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadFileRecord">
+            <summary>
+            This function code is used to perform a file record read.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.WriteFileRecord">
+            <summary>
+            This function code is used to perform a file record write.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.MaskWriteRegister">
+            <summary>
+            This function code is used to modify the contents of a specified holding register using a combination of an AND mask, an OR mask, and the register's current contents.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadWriteMultipleRegisters">
+            <summary>
+            This function code performs a combination of one read operation and one write operation in a single MODBUS transaction. The write operation is performed before the read.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.ReadFifoQueue">
+            <summary>
+            This function code allows to read the contents of a First-In-First-Out (FIFO) queue of register in a remote device.
+            </summary>
+        </member>
+        <member name="F:FluentModbus.ModbusFunctionCode.Error">
+            <summary>
+            This function code is added to another function code to indicate that an error occured.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusRtuSerialPort">
+            <summary>
+            A wrapper for a <see cref="T:System.IO.Ports.SerialPort" />.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.#ctor(System.IO.Ports.SerialPort)">
+            <summary>
+            Initializes a new instances of the <see cref="T:FluentModbus.ModbusRtuSerialPort" /> class.
+            </summary>
+            <param name="serialPort">The serial port to wrap.</param>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuSerialPort.PortName">
+            <summary>
+            Gets the port for communications.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuSerialPort.IsOpen">
+            <summary>
+            Gets a value indicating the open or closed status of the <see cref="T:FluentModbus.ModbusRtuSerialPort" /> object.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.Open">
+            <summary>
+            Opens a new serial port connection.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.Close">
+            <summary>
+            Closes the port connection, sets the <see cref="P:FluentModbus.ModbusRtuSerialPort.IsOpen"/> property to <see langword="false"/>, and disposes of the internal <see cref="T:System.IO.Stream"/> object.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads from the <see cref="T:System.IO.Ports.SerialPort"/> input buffer.
+            </summary>
+            <param name="buffer">The byte array to write the input to.</param>
+            <param name="offset">The offset in <paramref name="buffer"/> at which to write the bytes.</param>
+            <param name="count">The maximum number of bytes to read. Fewer bytes are read if <paramref name="count"/> is greater than the number of bytes in the input buffer.</param>
+            <returns>The number of bytes read.</returns>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously reads from the <see cref="T:System.IO.Ports.SerialPort"/> input buffer.
+            </summary>
+            <param name="buffer">The byte array to write the input to.</param>
+            <param name="offset">The offset in <paramref name="buffer"/> at which to write the bytes.</param>
+            <param name="count">The maximum number of bytes to read. Fewer bytes are read if <paramref name="count"/> is greater than the number of bytes in the input buffer.</param>
+            <param name="token">A token to cancel the current operation.</param>
+            <returns>The number of bytes read.</returns>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes data to the serial port output buffer.
+            </summary>
+            <param name="buffer">The byte array that contains the data to write to the port.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="buffer"/> parameter at which to begin copying bytes to the port.</param>
+            <param name="count">The number of bytes to write.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuSerialPort.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously writes data to the serial port output buffer.
+            </summary>
+            <param name="buffer">The byte array that contains the data to write to the port.</param>
+            <param name="offset">The zero-based byte offset in the <paramref name="buffer"/> parameter at which to begin copying bytes to the port.</param>
+            <param name="count">The number of bytes to write.</param>
+            <param name="token">A token to cancel the current operation.</param>
+        </member>
+        <member name="T:FluentModbus.ErrorMessage">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.Modbus_InvalidUseOfBroadcast">
+            <summary>
+              Looks up a localized string similar to Invalid use of broadcast: Unit identifier &apos;0&apos; can only be used for write operations..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.Modbus_InvalidValueUShort">
+            <summary>
+              Looks up a localized string similar to The value is invalid. Valid values are in the range of 0 - 65535..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x01_IllegalFunction">
+            <summary>
+              Looks up a localized string similar to The function code received in the query is not an allowable action for the server. This may be because the function code is only applicable to newer devices, and was not implemented in the unit selected. It could also indicate that the server is in the wrong state to process a request of this type, for example because it is unconfigured and is being asked to return register values..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x02_IllegalDataAddress">
+            <summary>
+              Looks up a localized string similar to The data address received in the query is not an allowable address for the server. More specifically, the combination of reference number and transfer length is invalid..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x03_IllegalDataValue">
+            <summary>
+              Looks up a localized string similar to A value contained in the query data field is not an allowable value for server. This indicates a fault in the structure of the remainder of a complex request, such as that the implied length is incorrect..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x03_IllegalDataValue_0x7B">
+            <summary>
+              Looks up a localized string similar to The quantity of registers is out of range (1..123). Make sure to request a minimum of one register. If you use the generic overload methods, please note that a single register consists of 2 bytes. If, for example, 1 x int32 value is requested, this results in a read operation of 2 registers..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x03_IllegalDataValue_0x7D">
+            <summary>
+              Looks up a localized string similar to The quantity of registers is out of range (1..125). Make sure to request a minimum of one register. If you use the generic overload methods, please note that a single register consists of 2 bytes. If, for example, 1 x int32 value is requested, this results in a read operation of 2 registers..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x03_IllegalDataValue_0x7D0">
+            <summary>
+              Looks up a localized string similar to The quantity of coils is out of range (1..2000)..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x04_ServerDeviceFailure">
+            <summary>
+              Looks up a localized string similar to An unrecoverable error occurred while the server was attempting to perform the requested action..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x05_Acknowledge">
+            <summary>
+              Looks up a localized string similar to The server has accepted the request and is processing it, but a long duration of time will be required to do so..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x06_ServerDeviceBusy">
+            <summary>
+              Looks up a localized string similar to The server is engaged in processing a long–duration program command..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x08_MemoryParityError">
+            <summary>
+              Looks up a localized string similar to The server attempted to read record file, but detected a parity error in the memory..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x0A_GatewayPathUnavailable">
+            <summary>
+              Looks up a localized string similar to The gateway was unable to allocate an internal communication path from the input port to the output port for processing the request..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_0x0B_GatewayTargetDeviceFailedToRespond">
+            <summary>
+              Looks up a localized string similar to No response was obtained from the target device.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_ArrayLengthMustBeEqualToTwo">
+            <summary>
+              Looks up a localized string similar to Array length must be equal to two bytes..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_ArrayLengthMustBeGreaterThanTwoAndEven">
+            <summary>
+              Looks up a localized string similar to Array length must be greater than two bytes and even..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_InvalidExceptionCode">
+            <summary>
+              Looks up a localized string similar to The exception code received from the server is invalid..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_InvalidProtocolIdentifier">
+            <summary>
+              Looks up a localized string similar to The protocol identifier is invalid..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_InvalidResponseFunctionCode">
+            <summary>
+              Looks up a localized string similar to The responsed function code is invalid..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_InvalidResponseMessageLength">
+            <summary>
+              Looks up a localized string similar to The response message length is invalid..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_InvalidUnitIdentifier">
+            <summary>
+              Looks up a localized string similar to The unit identifier is invalid. Valid node addresses are in the range of 0 - 247. Use address &apos;0&apos; to broadcast write command to all available servers..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_QuantityMustBePositiveInteger">
+            <summary>
+              Looks up a localized string similar to Quantity must be a positive integer number. Choose the &apos;count&apos; parameter such that an even number of bytes is requested..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_TcpConnectionClosedUnexpectedly">
+            <summary>
+              Looks up a localized string similar to The TCP connection closed unexpectedly..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_TcpConnectTimeout">
+            <summary>
+              Looks up a localized string similar to Could not connect within the specified time..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusClient_Unknown_Error">
+            <summary>
+              Looks up a localized string similar to Unknown {0} Modbus error received..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusServer_InvalidUnitIdentifier">
+            <summary>
+              Looks up a localized string similar to The unit identifier is invalid. Valid node addresses are in the range of 1 - 247..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusServer_UnitIdentifierNotFound">
+            <summary>
+              Looks up a localized string similar to No unit found for the specified unit identifier..
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ErrorMessage.ModbusTcpRequestHandler_NoValidRequestAvailable">
+            <summary>
+              Looks up a localized string similar to There is no valid request available..
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ITcpClientProvider">
+            <summary>
+            Provides TCP clients.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ITcpClientProvider.AcceptTcpClientAsync">
+            <summary>
+            Accepts the next TCP client.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:FluentModbus.ModbusRtuServer">
+            <summary>
+            A Modbus RTU server.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.#ctor(System.Byte)">
+            <summary>
+            Creates a Modbus RTU server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="unitIdentifier">The unique Modbus RTU unit identifier (1..247).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.#ctor(System.Byte,System.Boolean)">
+            <summary>
+            Creates a Modbus RTU server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="isAsynchronous">Enables or disables the asynchronous operation, where each client request is processed immediately using a locking mechanism. Use synchronuous operation to avoid locks in the hosting application. See the <see href="https://github.com/Apollo3zehn/FluentModbus">documentation</see> for more details.</param>
+            <param name="unitIdentifier">The unique Modbus RTU unit identifier (1..247).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.#ctor(System.Collections.Generic.IEnumerable{System.Byte})">
+            <summary>
+            Creates a multi-unit Modbus RTU server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="unitIdentifiers">The unique Modbus RTU unit identifiers (1..247).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.#ctor(System.Collections.Generic.IEnumerable{System.Byte},System.Boolean)">
+            <summary>
+            Creates a multi-unit Modbus RTU server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="isAsynchronous">Enables or disables the asynchronous operation, where each client request is processed immediately using a locking mechanism. Use synchronuous operation to avoid locks in the hosting application. See the <see href="https://github.com/Apollo3zehn/FluentModbus">documentation</see> for more details.</param>
+            <param name="unitIdentifiers">The unique Modbus RTU unit identifiers (1..247).</param>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.IsConnected">
+            <summary>
+            Gets the connection status of the underlying serial port.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.BaudRate">
+            <summary>
+            Gets or sets the serial baud rate. Default is 9600.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.Handshake">
+            <summary>
+            Gets or sets the handshaking protocol for serial port transmission of data. Default is Handshake.None.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.Parity">
+            <summary>
+            Gets or sets the parity-checking protocol. Default is Parity.Even.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.StopBits">
+            <summary>
+            Gets or sets the standard number of stopbits per byte. Default is StopBits.One.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.ReadTimeout">
+            <summary>
+            Gets or sets the read timeout in milliseconds. Default is 1000 ms.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusRtuServer.WriteTimeout">
+            <summary>
+            Gets or sets the write timeout in milliseconds. Default is 1000 ms.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.Start(System.String)">
+            <summary>
+            Starts the server. It will listen on the provided <paramref name="port"/>.
+            </summary>
+            <param name="port">The COM port to be used, e.g. COM1.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.Start(FluentModbus.IModbusRtuSerialPort)">
+            <summary>
+            Starts the server. It will communicate using the provided <paramref name="serialPort"/>.
+            </summary>
+            <param name="serialPort">The serial port to be used.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.Stop">
+            <summary>
+            Stops the server and closes the underlying serial port.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.AddUnit(System.Byte)">
+            <summary>
+            Dynamically adds a new unit to the server.
+            </summary>
+            <param name="unitIdentifier">The identifier of the unit to add.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusRtuServer.ProcessRequests">
+            <inheritdoc/>
+        </member>
+        <member name="T:FluentModbus.RegistersChangedEventArgs">
+            Provides data for the registers changed event.
+        </member>
+        <member name="P:FluentModbus.RegistersChangedEventArgs.UnitIdentifier">
+            <summary>
+            The unit identifier for the registers that have changed.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.RegistersChangedEventArgs.Registers">
+            <summary>
+            A list of registers that have changed.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.CoilsChangedEventArgs">
+            <summary>
+            Provides data for the coils changed event.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.CoilsChangedEventArgs.UnitIdentifier">
+            <summary>
+            The unit identifier for the coils that have changed.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.CoilsChangedEventArgs.Coils">
+            <summary>
+            A list of coils that have changed.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusServer">
+            <summary>
+            Base class for a Modbus server.
+            </summary>
+        </member>
+        <member name="E:FluentModbus.ModbusServer.RegistersChanged">
+            <summary>
+            Occurs after one or more registers changed.
+            </summary>
+        </member>
+        <member name="E:FluentModbus.ModbusServer.CoilsChanged">
+            <summary>
+            Occurs after one or more coils changed.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:FluentModbus.ModbusServer"/>.
+            </summary>
+            <param name="isAsynchronous">A boolean which indicates if the server responds to client requests asynchronously (immediately) or synchronously (regularly at fixed events).</param>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.UnitIdentifiers">
+            <summary>
+            Gets list of identifiers of the currently active units.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.Lock">
+            <summary>
+            Gets the lock object. For synchronous operation only.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.IsAsynchronous">
+            <summary>
+            Gets the operation mode.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.MaxInputRegisterAddress">
+            <summary>
+            Gets the maximum input register address.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.MaxHoldingRegisterAddress">
+            <summary>
+            Gets the maximum holding register address.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.MaxCoilAddress">
+            <summary>
+            Gets the maximum coil address.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.MaxDiscreteInputAddress">
+            <summary>
+            Gets the maximum discrete input address.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.RequestValidator">
+            <summary>
+            Gets or sets a method that validates each client request.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.EnableRaisingEvents">
+            <summary>
+            Gets or sets whether the events should be raised when register or coil data changes. Default: false.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusServer.AlwaysRaiseChangedEvent">
+            <summary>
+            Trigger the RegistersChanged or CoilsChanged event even when value has not been updated. Default: false.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetInputRegisters(System.Byte)">
+            <summary>
+            Gets the input register as <see cref="T:System.UInt16"/> array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the input registers to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetInputRegisterBuffer``1(System.Byte)">
+            <summary>
+            Gets the input register buffer as type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type of the returned array.</typeparam>
+            <param name="unitIdentifier">The unit identifier of the input register buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetInputRegisterBuffer(System.Byte)">
+            <summary>
+            Low level API. Use the generic version for easy access. This method gets the input register buffer as byte array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the input register buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetHoldingRegisters(System.Byte)">
+            <summary>
+            Gets the holding register as <see cref="T:System.UInt16"/> array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the holding registers to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetHoldingRegisterBuffer``1(System.Byte)">
+            <summary>
+            Gets the holding register buffer as type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type of the returned array.</typeparam>
+            <param name="unitIdentifier">The unit identifier of the holding register buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetHoldingRegisterBuffer(System.Byte)">
+            <summary>
+            Low level API. Use the generic version for easy access. This method gets the holding register buffer as byte array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the holding register buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetCoils(System.Byte)">
+            <summary>
+            Gets the coils as <see cref="T:System.Byte"/> array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the coils to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetCoilBuffer``1(System.Byte)">
+            <summary>
+            Gets the coil buffer as type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type of the returned array.</typeparam>
+            <param name="unitIdentifier">The unit identifier of the coil buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetCoilBuffer(System.Byte)">
+            <summary>
+            Low level API. Use the generic version for easy access. This method gets the coil buffer as byte array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the coil buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetDiscreteInputs(System.Byte)">
+            <summary>
+            Gets the discrete inputs as <see cref="T:System.Byte"/> array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the discrete inputs to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetDiscreteInputBuffer``1(System.Byte)">
+            <summary>
+            Gets the discrete input buffer as type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type of the returned array.</typeparam>
+            <param name="unitIdentifier">The unit identifier of the discrete input buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.GetDiscreteInputBuffer(System.Byte)">
+            <summary>
+            Low level API. Use the generic version for easy access. This method gets the discrete input buffer as byte array.
+            </summary>
+            <param name="unitIdentifier">The unit identifier of the discrete input buffer to return. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.ClearBuffers(System.Byte)">
+            <summary>
+            Clears all buffer contents.
+            </summary>
+            <param name="unitIdentifier">The unit identifier. A value of 0 means that the default unit identifier is used (for single-unit mode only).</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.Update">
+            <summary>
+            Serve all available client requests. For synchronous operation only.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.Stop">
+            <summary>
+            Stops the server operation and cleans up all resources.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.StopProcessing">
+            <summary>
+            Stops the server operation.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.StartProcessing">
+            <summary>
+            Starts the server operation.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.ProcessRequests">
+            <summary>
+            Process incoming requests.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.AddUnit(System.Byte)">
+            <summary>
+            Dynamically adds a new unit to the server.
+            </summary>
+            <param name="unitIdentifer">The identifier of the unit to add.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.RemoveUnit(System.Byte)">
+            <summary>
+            Dynamically removes an existing unit from the server.
+            </summary>
+            <param name="unitIdentifer">The identifier of the unit to remove.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.Dispose(System.Boolean)">
+            <summary>
+            Disposes the <see cref="T:FluentModbus.ModbusServer"/> and frees all managed and unmanaged resources.
+            </summary>
+            <param name="disposing">A value indicating if the finalizer or the dispose method triggered the dispose process.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.Finalize">
+            <summary>
+            Disposes the <see cref="T:FluentModbus.ModbusServer"/> and frees all managed and unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusServer.Dispose">
+            <summary>
+            Disposes the buffers.
+            </summary>
+        </member>
+        <member name="T:FluentModbus.ModbusTcpServer">
+            <summary>
+            A Modbus TCP server.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.#ctor">
+            <summary>
+            Creates a Modbus TCP server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.#ctor(Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a Modbus TCP server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="logger">A logger instance to provide runtime information.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.#ctor(System.Boolean)">
+            <summary>
+            Creates a Modbus TCP server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="isAsynchronous">Enables or disables the asynchronous operation, where each client request is processed immediately using a locking mechanism. Use synchronuous operation to avoid locks in the hosting application. See the <see href="https://github.com/Apollo3zehn/FluentModbus">documentation</see> for more details.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.#ctor(Microsoft.Extensions.Logging.ILogger,System.Boolean)">
+            <summary>
+            Creates a Modbus TCP server with support for holding registers (read and write, 16 bit), input registers (read-only, 16 bit), coils (read and write, 1 bit) and discete inputs (read-only, 1 bit).
+            </summary>
+            <param name="logger">A logger instance to provide runtime information.</param>
+            <param name="isAsynchronous">Enables or disables the asynchronous operation, where each client request is processed immediately using a locking mechanism. Use synchronuous operation to avoid locks in the hosting application. See the <see href="https://github.com/Apollo3zehn/FluentModbus">documentation</see> for more details.</param>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpServer.ConnectionTimeout">
+            <summary>
+            Gets or sets the timeout for each client connection. When the client does not send any request within the specified period of time, the connection will be reset. Default is 1 minute.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpServer.MaxConnections">
+            <summary>
+            Gets or sets the maximum number of concurrent client connections. A value of zero means there is no limit.
+            </summary>
+        </member>
+        <member name="P:FluentModbus.ModbusTcpServer.ConnectionCount">
+            <summary>
+            Gets the number of currently connected clients.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.Start">
+            <summary>
+            Starts the server. It will listen on any IP address on port 502.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.Start(System.Net.IPAddress)">
+            <summary>
+            Starts the server. It will listen on the provided <paramref name="ipAddress"/> on port 502.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.Start(System.Net.IPEndPoint)">
+            <summary>
+            Starts the server. It will listen on the provided <paramref name="localEndpoint"/>.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.Start(FluentModbus.ITcpClientProvider,System.Boolean)">
+            <summary>
+            Starts the server. It will accept all TCP clients provided by the provided <see cref="T:FluentModbus.ITcpClientProvider"/>.
+            </summary>
+            <param name="tcpClientProvider">The TCP client provider.</param>
+            <param name="leaveOpen"><see langword="true"/> to leave the TCP client provider open after the <see cref="T:FluentModbus.ModbusTcpServer"/> object is stopped or disposed; otherwise, <see langword="false"/>.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.Start(System.Net.Sockets.TcpClient)">
+            <summary>
+            Starts the server. It will use only the provided <see cref="T:System.Net.Sockets.TcpClient"/>.
+            </summary>
+            <param name="tcpClient">The TCP client to communicate with.</param>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.Stop">
+            <summary>
+            Stops the server and closes all open TCP connections.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.ModbusTcpServer.ProcessRequests">
+            <inheritdoc/>
+        </member>
+        <member name="T:FluentModbus.SpanExtensions">
+            <summary>
+            Contains extension methods to read and write data from the Modbus registers.
+            </summary>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.SetLittleEndian``1(System.Span{System.Int16},System.Int32,``0)">
+            <summary>
+            Writes a single value of type <typeparamref name="T"/> to the registers and converts it to the little-endian representation if necessary.
+            </summary>
+            <typeparam name="T">The type of the value to write.</typeparam>
+            <param name="buffer">The target buffer.</param>
+            <param name="address">The Modbus register address.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.SetMidLittleEndian``1(System.Span{System.Int16},System.Int32,``0)">
+            <summary>
+            Writes a single value of type <typeparamref name="T"/> to the registers and converts it to the mid-little-endian representation.
+            </summary>
+            <typeparam name="T">The type of the value to write.</typeparam>
+            <param name="buffer">The target buffer.</param>
+            <param name="address">The Modbus register address.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.SetBigEndian``1(System.Span{System.Int16},System.Int32,``0)">
+            <summary>
+            Writes a single value of type <typeparamref name="T"/> to the registers and converts it to the big-endian representation if necessary.
+            </summary>
+            <typeparam name="T">The type of the value to write.</typeparam>
+            <param name="buffer">The target buffer.</param>
+            <param name="address">The Modbus register address.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.GetLittleEndian``1(System.Span{System.Int16},System.Int32)">
+            <summary>
+            Reads a single little-endian value of type <typeparamref name="T"/> from the registers.
+            </summary>
+            <typeparam name="T">The type of the value to read.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="address">The Modbus register address.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.GetMidLittleEndian``1(System.Span{System.Int16},System.Int32)">
+            <summary>
+            Reads a single mid-little-endian value of type <typeparamref name="T"/> from the registers.
+            </summary>
+            <typeparam name="T">The type of the value to read.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="address">The Modbus register address.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.GetBigEndian``1(System.Span{System.Int16},System.Int32)">
+            <summary>
+            Reads a single big-endian value of type <typeparamref name="T"/> from the registers.
+            </summary>
+            <typeparam name="T">The type of the value to read.</typeparam>
+            <param name="buffer">The source buffer.</param>
+            <param name="address">The Modbus register address.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.Set(System.Span{System.Byte},System.Int32,System.Boolean)">
+            <summary>
+            Writes a single bit to the buffer.
+            </summary>
+            <param name="buffer">The target buffer.</param>
+            <param name="address">The Modbus address.</param>
+            <param name="value">The value to set.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.Get(System.Span{System.Byte},System.Int32)">
+            <summary>
+            Reads a single bit from the buffer.
+            </summary>
+            <param name="buffer">The source buffer.</param>
+            <param name="address">The Modbus address.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.Toggle(System.Span{System.Byte},System.Int32)">
+            <summary>
+            Toggles a single bit in the buffer.
+            </summary>
+            <param name="buffer">The source buffer.</param>
+            <param name="address">The Modbus address.</param>
+        </member>
+        <member name="M:FluentModbus.SpanExtensions.Cast``2(System.Memory{``0})">
+            <summary>
+            Casts a memory of one primitive type to a memory of another primitive type.
+            </summary>
+            <typeparam name="TFrom">The type of the source memory.</typeparam>
+            <typeparam name="TTo">The type of the target memory.</typeparam>
+            <param name="memory">The source slice to convert.</param>
+            <returns>The converted memory.</returns>
+        </member>
+    </members>
+</doc>

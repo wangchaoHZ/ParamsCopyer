@@ -1,0 +1,5 @@
+[2025-09-06 12:21:19] 写入异常: 无法从传输连接中读取数据: 远程主机强迫关闭了一个现有的连接。。    在 System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   在 FluentModbus.ModbusTcpClient.TransceiveFrame(Byte unitIdentifier, ModbusFunctionCode functionCode, Action`1 extendFrame) 位置 /home/runner/work/FluentModbus/FluentModbus/src/FluentModbus/Client/ModbusTcpClient.cs:行号 270
+   在 FluentModbus.ModbusClient.WriteMultipleRegisters(Byte unitIdentifier, UInt16 startingAddress, Byte[] dataset) 位置 /home/runner/work/FluentModbus/FluentModbus/src/FluentModbus/Client/ModbusClient.cs:行号 200
+   在 FluentModbus.ModbusClient.WriteMultipleRegisters[T](Int32 unitIdentifier, Int32 startingAddress, T[] dataset) 位置 /home/runner/work/FluentModbus/FluentModbus/src/FluentModbus/Client/ModbusClient.cs:行号 178
+   在 ParamsCopyer.Form1.button2_Click(Object sender, EventArgs e) 位置 D:\WinDesktop\ParamsCopyer\Form1.cs:行号 244

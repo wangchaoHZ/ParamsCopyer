@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParamsCopyer", "ParamsCopyer.csproj", "{57E1097F-3E89-4D24-8EBD-D780F8C62C62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57E1097F-3E89-4D24-8EBD-D780F8C62C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57E1097F-3E89-4D24-8EBD-D780F8C62C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57E1097F-3E89-4D24-8EBD-D780F8C62C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57E1097F-3E89-4D24-8EBD-D780F8C62C62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30FA9588-4652-4515-8560-3B973B9F1E9B}
+	EndGlobalSection
+EndGlobal
